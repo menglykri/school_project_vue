@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { Head, Link} from '@inertiajs/vue3';
-import { subjects } from '@/routes';
 import Button from '@/components/ui/button/Button.vue';
 import { usePage } from '@inertiajs/vue3';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { MailCheck } from "lucide-vue-next";
+import AlertMessage from '@/components/AlertMessage.vue';
 import {
   Table,
   TableBody,
@@ -51,15 +49,8 @@ defineOptions({
     <Head title="Classes" />
 
     <div class="p-4">
-        <div v-if="page.props.flash?.message" class="alert mb-4">
-            <Alert class="bg-green-200">
-                <MailCheck class="h-4 w-4" />
-                <AlertTitle>Success!</AlertTitle>
-                <AlertDescription>
-                    {{ page.props.flash.message }}
-                </AlertDescription>
-            </Alert>
-        </div>
+        <!-- Alert Message -->
+        <AlertMessage />
 
         <!-- Create Teacher Button -->
         <Link class="flex justify-end items-center mb-4" href="/classes/create">
@@ -85,8 +76,19 @@ defineOptions({
                     <TableCell>{{ classItem.name }}</TableCell>
                     <TableCell>{{ classItem.room_number }}</TableCell>
                     <TableCell class="text-center">
+                        <!-- Edit Link -->
                         <Link :href="`/classes/${classItem.id}/edit`" class="text-blue-500 hover:underline">Edit</Link>
-                        <Link :href="`/classes/${classItem.id}`" @click.prevent="confirmDelete" class="text-red-500 hover:underline ml-2">Delete</Link>
+
+                        <!-- Delete Link -->
+                        <Link
+                            :href="`/classes/${classItem.id}/delete`"
+                            method="delete"
+                            as="button"
+                            class="text-red-500 hover:underline ml-4"
+                            @click="confirmDelete"
+                        >
+                            Delete
+                        </Link>
                     </TableCell>
                 </TableRow>
             </TableBody>

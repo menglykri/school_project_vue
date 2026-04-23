@@ -10,4 +10,9 @@ class Classes extends Model
         'name',
         'room_number',
     ];
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'class_id');
+    }
 }

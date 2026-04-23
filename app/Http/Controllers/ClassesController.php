@@ -49,25 +49,34 @@ class ClassesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Classes $classItem)
+    public function edit($id)
     {
-        $classItem = Classes::findOrFail($classItem->id);
+        $classItem = Classes::findOrFail($id);
         return inertia('classes/Edit', compact('classItem'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Classes $classes)
+    public function update(Request $request, $id)
     {
-        //
+        $classItem = Classes::findOrFail($id);
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'room_number' => 'required|string|max:255',
+        ]);
+
+        $classItem->update($data);
+        return redirect()->route('classes')->with('message', 'Class updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Classes $classes)
+    public function destroy($id)
     {
-        //
+        $classItem = Classes::findOrFail($id);
+        $classItem->delete();
+        return redirect()->route('classes')->with('message', 'Class deleted successfully.');
     }
 }

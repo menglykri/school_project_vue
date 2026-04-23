@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClassesController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -35,6 +36,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/classes/{class}/edit', [ClassesController::class, 'edit'])->name('classes.edit');
     Route::put('/classes/{class}', [ClassesController::class, 'update'])->name('classes.update');
     Route::delete('/classes/{class}/delete', [ClassesController::class, 'destroy'])->name('classes.destroy');
+
+    // Students routes
+    Route::get('/students', [StudentController::class, 'index'])->name('students');
+    Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
+    Route::post('/students', [StudentController::class, 'store'])->name('students.store');
+    Route::get('/students/{student}/edit', [StudentController::class, 'edit'])->name('students.edit');
+    Route::put('/students/{student}', [StudentController::class, 'update'])->name('students.update');
+    Route::delete('/students/{student}/delete', [StudentController::class, 'destroy'])->name('students.destroy');
+
 });
 
 require __DIR__.'/settings.php';

@@ -3,8 +3,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import { usePage } from '@inertiajs/vue3';
 import { teachers } from '@/routes';
 import Button from '@/components/ui/button/Button.vue';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { MailCheck } from "lucide-vue-next";
+import AlertMessage from '@/components/AlertMessage.vue';
 import {
   Table,
   TableBody,
@@ -53,15 +52,8 @@ defineOptions({
     <Head title="Teachers" />
 
     <div class="p-4">
-        <div v-if="page.props.flash?.message" class="alert mb-4">
-            <Alert class="bg-green-200">
-                <MailCheck class="h-4 w-4" />
-                <AlertTitle>Success!</AlertTitle>
-                <AlertDescription>
-                    {{ page.props.flash.message }}
-                </AlertDescription>
-            </Alert>
-        </div>
+        <!-- Alert Message -->
+        <AlertMessage />
 
         <!-- Create Teacher Button -->
         <Link class="flex justify-end items-center mb-4" href="/teachers/create">
